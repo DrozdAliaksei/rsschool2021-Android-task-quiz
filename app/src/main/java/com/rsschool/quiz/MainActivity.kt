@@ -18,12 +18,10 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
             setContentView(root)
-
             viewPager.adapter = QuizAdapter()
             viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
 
@@ -34,8 +32,29 @@ class MainActivity : AppCompatActivity() {
 
     inner class QuizAdapter : RecyclerView.Adapter<QuizViewHolder>() {
         override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
-            TODO("Not yet implemented")
-            holder.binding.question.text = "questions[position]"
+            when (position) {
+                0 -> setData(holder, QuizQuestions.One)
+                1 -> setData(holder, QuizQuestions.Two)
+                2 -> setData(holder, QuizQuestions.Three)
+                3 -> setData(holder, QuizQuestions.Four)
+                4 -> setData(holder, QuizQuestions.Five)
+            }
+
+            holder.binding.radioGroup.setOnCheckedChangeListener { group, i ->
+
+            }
+        }
+
+        private fun setData(holder: QuizViewHolder, quiz: QuizQuestions) {
+            with(holder.binding) {
+                toolbar.title = quiz.title
+                question.text = quiz.question
+                optionOne.text = quiz.answers[0]
+                optionTwo.text = quiz.answers[1]
+                optionThree.text = quiz.answers[2]
+                optionFour.text = quiz.answers[3]
+                optionFive.text = quiz.answers[4]
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = QuizViewHolder(
@@ -43,8 +62,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         override fun getItemCount(): Int {
-            TODO("Not yet implemented")
-            //return quizQuestions.size
+            return 5
         }
     }
 
