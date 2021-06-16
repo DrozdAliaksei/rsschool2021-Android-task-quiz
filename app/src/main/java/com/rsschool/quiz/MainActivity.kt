@@ -12,7 +12,7 @@ import com.rsschool.quiz.databinding.FragmentQuizBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var userAnswers: Array<Int>
+    private var userAnswers = mutableListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
             setContentView(root)
             viewPager.adapter = QuizAdapter(viewPager)
             viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
@@ -32,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    inner class QuizAdapter(val viewPager2: ViewPager2) : RecyclerView.Adapter<QuizViewHolder>() {
+    inner class QuizAdapter(private val viewPager2: ViewPager2) :
+        RecyclerView.Adapter<QuizViewHolder>() {
         override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
             when (position) {
                 0 -> {
@@ -47,19 +47,29 @@ class MainActivity : AppCompatActivity() {
                 3 -> setData(holder, QuizQuestions.Four)
                 4 -> {
                     setData(holder, QuizQuestions.Five)
-                    holder.binding.nextButton.text = "Submit"
+                    holder.binding.nextButton.text = getString(R.string.SubmitButton)
                 }
             }
             holder.binding.previousButton.setOnClickListener {
                 viewPager2.currentItem = position - 1
             }
-            holder.binding.nextButton.setOnClickListener {
-                if (position != 4) viewPager2.currentItem = position + 1
-                //else open new activity with result
+            holder.binding.toolbar.setOnClickListener {
+                viewPager2.currentItem = position - 1
             }
-
             holder.binding.radioGroup.setOnCheckedChangeListener { group, i ->
-
+                if (group.isEnabled) {
+                    holder.binding.nextButton.setOnClickListener {
+                        if (position != 4) viewPager2.currentItem = position + 1
+                        //else open new activity with result
+                    }
+                    when (i) {
+                        holder.binding.optionOne.id -> userAnswers.add(position, 0)
+                        holder.binding.optionTwo.id -> userAnswers.add(position, 1)
+                        holder.binding.optionThree.id -> userAnswers.add(position, 2)
+                        holder.binding.optionFour.id -> userAnswers.add(position, 3)
+                        holder.binding.optionFive.id -> userAnswers.add(position, 4)
+                    }
+                }
             }
         }
 
