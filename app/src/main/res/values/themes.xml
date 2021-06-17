@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Theme.Quiz" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
@@ -23,5 +24,25 @@
         <item name="colorSecondaryVariant">@color/yellow_100_light</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/yellow_100_dark</item>
+    </style>
+
+    <style name="Theme.Quiz.Third" parent="Theme.Quiz">
+        <item name="colorPrimary">@color/cyan_100_dark</item>
+        <item name="colorPrimaryDark">#918A9F</item>
+        <item name="colorPrimaryVariant">#51577A</item>
+        <item name="colorSecondary">#42777E</item>
+        <item name="colorSecondaryVariant">#A86D81</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#B69667</item>
+    </style>
+
+    <style name="Theme.Quiz.Four" parent="Theme.Quiz">
+        <item name="colorPrimary">#18B4C5</item>
+        <item name="colorPrimaryDark">#9F8842</item>
+        <item name="colorPrimaryVariant">#6FBA18</item>
+        <item name="colorSecondary">#15555E</item>
+        <item name="colorSecondaryVariant">#973B5A</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#ECA032</item>
     </style>
 </resources>

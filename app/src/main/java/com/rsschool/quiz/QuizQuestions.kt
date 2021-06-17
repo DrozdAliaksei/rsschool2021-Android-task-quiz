@@ -4,6 +4,7 @@ enum class QuizQuestions(
     val title: String,
     val question: String,
     val answers: Array<String>,
+    val theme: Int,
     val indexOfTrueAnswer: Int
 ) {
     One(
@@ -12,7 +13,8 @@ enum class QuizQuestions(
         arrayOf(
             "1", "2", "3", "4", "5"
         ),
-        3
+        R.style.Theme_Quiz_Four,
+        2
     ),
     Two(
         "Второй вопрос",
@@ -20,7 +22,8 @@ enum class QuizQuestions(
         arrayOf(
             "w", "2w", "3w", "4w", "5w"
         ),
-        5
+        R.style.Theme_Quiz_First,
+        4
     ),
     Three(
         "Третий вопрос",
@@ -28,7 +31,8 @@ enum class QuizQuestions(
         arrayOf(
             "1", "2", "3", "4", "5"
         ),
-        2
+        R.style.Theme_Quiz_Second,
+        1
     ),
     Four(
         "Четвертый вопрос",
@@ -36,7 +40,8 @@ enum class QuizQuestions(
         arrayOf(
             "1", "2", "3", "4", "5"
         ),
-        1
+        R.style.Theme_Quiz_Third,
+        0
     ),
     Five(
         "Пятый вопрос",
@@ -44,6 +49,7 @@ enum class QuizQuestions(
         arrayOf(
             "1", "2", "3", "4", "5"
         ),
-        5
+        R.style.Theme_Quiz,
+        4
     )
 }
