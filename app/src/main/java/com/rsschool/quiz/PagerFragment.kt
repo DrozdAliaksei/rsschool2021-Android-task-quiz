@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.rsschool.quiz.databinding.FragmentPagerBinding
@@ -75,7 +76,10 @@ class PagerFragment : Fragment() {
                 if (group.isEnabled) {
                     holder.binding.nextButton.setOnClickListener {
                         if (position != 4) viewPager2.currentItem = position + 1
-                        //else open new activity with result
+                        else {
+
+                            findNavController().navigate(R.id.action_pagerFragment3_to_resultsFragment2)
+                        }
                     }
                     when (i) {
                         holder.binding.optionOne.id -> userAnswers.add(position, 0)

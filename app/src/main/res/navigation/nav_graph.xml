@@ -8,10 +8,22 @@
         android:id="@+id/pagerFragment3"
         android:name="com.rsschool.quiz.PagerFragment"
         android:label="fragment_pager"
-        tools:layout="@layout/fragment_pager" />
+        tools:layout="@layout/fragment_pager" >
+        <action
+            android:id="@+id/action_pagerFragment3_to_resultsFragment2"
+            app:destination="@id/resultsFragment2"
+            app:popUpTo="@id/pagerFragment3"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/resultsFragment2"
         android:name="com.rsschool.quiz.ResultsFragment"
         android:label="fragment_results"
-        tools:layout="@layout/fragment_results" />
+        tools:layout="@layout/fragment_results" >
+        <action
+            android:id="@+id/action_resultsFragment2_to_pagerFragment3"
+            app:destination="@id/pagerFragment3"
+            app:popUpTo="@id/pagerFragment3"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
