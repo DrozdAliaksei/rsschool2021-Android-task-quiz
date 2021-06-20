@@ -7,21 +7,54 @@
     tools:context=".ResultsFragment">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="76dp" />
-
-    <Button
-        android:id="@+id/button"
+        android:id="@+id/result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="150dp"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:text="You result is: " />
+
+
+    <ImageButton
+        android:id="@+id/revert"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/revert"
+        android:src="@android:drawable/ic_menu_revert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/result"
+        app:tint="@color/black" />
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/close"
+        android:src="@android:drawable/ic_lock_power_off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/share"
+        app:layout_constraintStart_toEndOf="@id/revert"
+        app:layout_constraintTop_toBottomOf="@id/result"
+        app:tint="@color/black" />
+
+    <ImageButton
+        android:id="@+id/share"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/share"
+        android:src="?attr/actionModeShareDrawable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/close"
+        app:layout_constraintTop_toBottomOf="@id/result"
+        app:tint="@color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

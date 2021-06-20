@@ -25,5 +25,8 @@
             app:destination="@id/pagerFragment3"
             app:popUpTo="@id/pagerFragment3"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="userResult"
+            app:argType="integer[]" />
     </fragment>
 </navigation>

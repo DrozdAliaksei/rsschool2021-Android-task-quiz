@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -30,7 +31,6 @@ class PagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            //setContentView(root)
             viewPager.adapter = QuizAdapter(viewPager)
             viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -77,8 +77,11 @@ class PagerFragment : Fragment() {
                     holder.binding.nextButton.setOnClickListener {
                         if (position != 4) viewPager2.currentItem = position + 1
                         else {
-
-                            findNavController().navigate(R.id.action_pagerFragment3_to_resultsFragment2)
+                            val bundle = bundleOf("userResult" to userAnswers.toIntArray())
+                            findNavController().navigate(
+                                R.id.action_pagerFragment3_to_resultsFragment2,
+                                bundle
+                            )
                         }
                     }
                     when (i) {
