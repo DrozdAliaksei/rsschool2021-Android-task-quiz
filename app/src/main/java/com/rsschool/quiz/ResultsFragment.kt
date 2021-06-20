@@ -29,14 +29,15 @@ class ResultsFragment : Fragment() {
         val userAnswers = arguments?.getIntArray("userResult")
         val userResult = correctAnswers(userAnswers)
 
-        with(binding) {
-            result.text = getString(R.string.result, userResult)
-            revert.setOnClickListener { findNavController().navigate(R.id.action_resultsFragment2_to_pagerFragment3) }
-            close.setOnClickListener { exitProcess(0) }
-            share.setOnClickListener {
-                val sharingResultText = """                You result is $userResult / 5
+        userAnswers?.let {
+            with(binding) {
+                result.text = getString(R.string.result, userResult)
+                revert.setOnClickListener { findNavController().navigate(R.id.action_resultsFragment2_to_pagerFragment3) }
+                close.setOnClickListener { exitProcess(0) }
+                share.setOnClickListener {
+                    val sharingResultText = """                You result is $userResult / 5
                     | ${QuizQuestions.One.title}: ${QuizQuestions.One.question}
-                    | You answer : ${QuizQuestions.One.answers[userAnswers!![0]]}
+                    | You answer : ${QuizQuestions.One.answers[userAnswers[0]]}
                     | ${QuizQuestions.Two.title}: ${QuizQuestions.Two.question}
                     | You answer: ${QuizQuestions.Two.answers[userAnswers[1]]}
                     | ${QuizQuestions.Three.title}: ${QuizQuestions.Three.question}
@@ -46,36 +47,13 @@ class ResultsFragment : Fragment() {
                     | ${QuizQuestions.Five.title}: ${QuizQuestions.Five.question}
                     | You answer: ${QuizQuestions.Five.answers[userAnswers[4]]}
                 """.trimMargin()
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_TEXT, sharingResultText)
-                startActivity(intent)
-            }
-        }
-    }
-
-    private fun correctAnswers(userAnswers: IntArray?): Int {
-        var correct = 0
-        for (question in userAnswers!!) {
-            when (question) {
-                0 -> {
-                    if (userAnswers[question] == QuizQuestions.One.indexOfTrueAnswer) correct++
-                }
-                1 -> {
-                    if (userAnswers[question] == QuizQuestions.Two.indexOfTrueAnswer) correct++
-                }
-                2 -> {
-                    if (userAnswers[question] == QuizQuestions.Three.indexOfTrueAnswer) correct++
-                }
-                3 -> {
-                    if (userAnswers[question] == QuizQuestions.Four.indexOfTrueAnswer) correct++
-                }
-                4 -> {
-                    if (userAnswers[question] == QuizQuestions.Five.indexOfTrueAnswer) correct++
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "text/plain"
+                    intent.putExtra(Intent.EXTRA_TEXT, sharingResultText)
+                    startActivity(intent)
                 }
             }
         }
-        return correct
     }
 
     override fun onAttach(context: Context) {
@@ -91,5 +69,21 @@ class ResultsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun correctAnswers(userAnswers: IntArray?): Int {
+        var correct = 0
+        userAnswers?.let {
+            for (index in 0..4) {
+                when (index) {
+                    0 -> if (userAnswers[index] == QuizQuestions.One.indexOfTrueAnswer) ++correct
+                    1 -> if (userAnswers[index] == QuizQuestions.Two.indexOfTrueAnswer) ++correct
+                    2 -> if (userAnswers[index] == QuizQuestions.Three.indexOfTrueAnswer) ++correct
+                    3 -> if (userAnswers[index] == QuizQuestions.Four.indexOfTrueAnswer) ++correct
+                    4 -> if (userAnswers[index] == QuizQuestions.Five.indexOfTrueAnswer) ++correct
+                }
+            }
+        }
+        return correct
     }
 }

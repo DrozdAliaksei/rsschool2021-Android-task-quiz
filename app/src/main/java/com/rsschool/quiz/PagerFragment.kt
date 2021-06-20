@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.rsschool.quiz.databinding.FragmentPagerBinding
 import com.rsschool.quiz.databinding.FragmentQuizBinding
+import kotlin.system.exitProcess
 
 class PagerFragment : Fragment() {
 
-    private var userAnswers = mutableListOf<Int>()
+    private var userAnswers = mutableListOf(-1, -1, -1, -1, -1)
     private var _binding: FragmentPagerBinding? = null
     private val binding get() = _binding!!
 
@@ -25,6 +27,14 @@ class PagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPagerBinding.inflate(inflater, container, false)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val currentIndex = binding.viewPager.currentItem
+                if (currentIndex > 0) binding.viewPager.currentItem = currentIndex - 1
+                else exitProcess(0)
+            }
+        }
+        activity?.onBackPressedDispatcher?.addCallback(callback)
         return binding.root
     }
 
@@ -69,7 +79,7 @@ class PagerFragment : Fragment() {
             holder.binding.previousButton.setOnClickListener {
                 viewPager2.currentItem = position - 1
             }
-            holder.binding.toolbar.setOnClickListener {
+            holder.binding.toolbar.setNavigationOnClickListener {
                 viewPager2.currentItem = position - 1
             }
             holder.binding.radioGroup.setOnCheckedChangeListener { group, i ->
@@ -85,11 +95,11 @@ class PagerFragment : Fragment() {
                         }
                     }
                     when (i) {
-                        holder.binding.optionOne.id -> userAnswers.add(position, 0)
-                        holder.binding.optionTwo.id -> userAnswers.add(position, 1)
-                        holder.binding.optionThree.id -> userAnswers.add(position, 2)
-                        holder.binding.optionFour.id -> userAnswers.add(position, 3)
-                        holder.binding.optionFive.id -> userAnswers.add(position, 4)
+                        holder.binding.optionOne.id -> userAnswers[position] = 0
+                        holder.binding.optionTwo.id -> userAnswers[position] = 1
+                        holder.binding.optionThree.id -> userAnswers[position] = 2
+                        holder.binding.optionFour.id -> userAnswers[position] = 3
+                        holder.binding.optionFive.id -> userAnswers[position] = 4
                     }
                 }
             }
