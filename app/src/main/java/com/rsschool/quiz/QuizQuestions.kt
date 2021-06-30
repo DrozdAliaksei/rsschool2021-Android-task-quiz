@@ -13,7 +13,7 @@ enum class QuizQuestions(
         arrayOf(
             "-1", "1", "9", "0", "5"
         ),
-        R.style.Theme_Quiz_Four,
+        R.style.Theme_Quiz_Second,
         2
     ),
     Two(
@@ -26,7 +26,7 @@ enum class QuizQuestions(
         arrayOf(
             "12", "40", "96", "40 или 96", "96 или 12"
         ),
-        R.style.Theme_Quiz_First,
+        R.style.Theme_Quiz_Third,
         3
     ),
     Three(
@@ -35,7 +35,7 @@ enum class QuizQuestions(
         arrayOf(
             ".zip", ".exe", ".apk", ".sh", ".exe"
         ),
-        R.style.Theme_Quiz_Second,
+        R.style.Theme_Quiz_Four,
         2
     ),
     Four(
@@ -44,7 +44,7 @@ enum class QuizQuestions(
         arrayOf(
             "Any()", "Void()", "Unit()", "Nothing()", "Something()"
         ),
-        R.style.Theme_Quiz_Third,
+        R.style.Theme_Quiz_Five,
         2
     ),
     Five(
@@ -53,7 +53,7 @@ enum class QuizQuestions(
         arrayOf(
             "List", "Map", "Deque", "HashMap", "Set"
         ),
-        R.style.Theme_Quiz,
+        R.style.Theme_Quiz_First,
         4
     )
 }

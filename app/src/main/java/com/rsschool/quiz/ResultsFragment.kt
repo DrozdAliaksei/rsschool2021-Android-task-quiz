@@ -1,6 +1,5 @@
 package com.rsschool.quiz
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,13 +13,19 @@ import kotlin.system.exitProcess
 
 class ResultsFragment : Fragment() {
     private var _binding: FragmentResultsBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentResultsBinding get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_resultsFragment2_to_pagerFragment3)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
 
@@ -56,19 +61,9 @@ class ResultsFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_resultsFragment2_to_pagerFragment3)
-            }
-        }
-        activity?.onBackPressedDispatcher?.addCallback(callback)
-    }
-
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun correctAnswers(userAnswers: IntArray?): Int {

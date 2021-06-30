@@ -19,7 +19,7 @@ class PagerFragment : Fragment() {
 
     private var userAnswers = mutableListOf(-1, -1, -1, -1, -1)
     private var _binding: FragmentPagerBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentPagerBinding get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ class PagerFragment : Fragment() {
                 else exitProcess(0)
             }
         }
-        activity?.onBackPressedDispatcher?.addCallback(callback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
 
@@ -53,8 +53,8 @@ class PagerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     inner class QuizAdapter(private val viewPager2: ViewPager2) :
@@ -84,6 +84,7 @@ class PagerFragment : Fragment() {
             }
             holder.binding.radioGroup.setOnCheckedChangeListener { group, i ->
                 if (group.isEnabled) {
+                    holder.binding.nextButton.isEnabled = true
                     holder.binding.nextButton.setOnClickListener {
                         if (position != 4) viewPager2.currentItem = position + 1
                         else {
@@ -107,7 +108,7 @@ class PagerFragment : Fragment() {
 
         private fun setData(holder: QuizViewHolder, quiz: QuizQuestions) {
             with(holder.binding) {
-                context?.theme?.applyStyle(quiz.theme, true)
+                requireContext().theme.applyStyle(quiz.theme, true)
                 toolbar.title = quiz.title
                 question.text = quiz.question
                 optionOne.text = quiz.answers[0]
@@ -115,6 +116,7 @@ class PagerFragment : Fragment() {
                 optionThree.text = quiz.answers[2]
                 optionFour.text = quiz.answers[3]
                 optionFive.text = quiz.answers[4]
+                nextButton.isEnabled = false
             }
         }
 
