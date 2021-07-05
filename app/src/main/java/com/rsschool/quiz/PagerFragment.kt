@@ -102,7 +102,7 @@ class PagerFragment : Fragment() {
                         holder.binding.optionFour.id -> userAnswers[position] = 3
                         holder.binding.optionFive.id -> userAnswers[position] = 4
                     }
-                }
+                } else holder.binding.nextButton.isEnabled = false
             }
         }
 
@@ -116,7 +116,7 @@ class PagerFragment : Fragment() {
                 optionThree.text = quiz.answers[2]
                 optionFour.text = quiz.answers[3]
                 optionFive.text = quiz.answers[4]
-                nextButton.isEnabled = false
+//                nextButton.isEnabled = false
             }
         }
 
